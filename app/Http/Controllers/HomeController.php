@@ -27,16 +27,19 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // fetching clients.
         $clients = User::role('Client')->paginate(10);
         return view('home', compact('clients'));
     }
     public function create(User $client)
     {
+        // form for setting special prices.
         $products = Product::all();
         return view('set-prices', compact('client', 'products'));
     }
     public function store(SpecialProductPriceRequest $request)
     {
+        // storing special product price
         try {
             $input = $request->all();
             $productIds = $input['product_id'];
